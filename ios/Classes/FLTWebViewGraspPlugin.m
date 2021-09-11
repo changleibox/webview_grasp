@@ -6,7 +6,7 @@
 #import "FLTCookieManager.h"
 #import "FlutterWebView.h"
 
-@implementation FLTWebViewFlutterPlugin
+@implementation FLTWebViewGraspPlugin
 
 + (void)registerWithRegistrar:(NSObject<FlutterPluginRegistrar>*)registrar {
   FLTWebViewFactory* webviewFactory =
