@@ -30,9 +30,9 @@ flutter:
     platforms:
       android:
         package: me.box.webview_grasp
-        pluginClass: WebviewGraspPlugin
+        pluginClass: WebViewGraspPlugin
       ios:
-        pluginClass: FLTWebviewGraspPlugin
+        pluginClass: FLTWebViewGraspPlugin
 
   # To add assets to your plugin package, add an assets section, like this:
   # assets:

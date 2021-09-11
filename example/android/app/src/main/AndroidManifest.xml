@@ -38,4 +38,15 @@
             android:name="flutterEmbedding"
             android:value="2" />
     </application>
+
+    <!-- The INTERNET permission is required for development. Specifically,
+         flutter needs it to communicate with the running application
+         to allow setting breakpoints, to provide hot reload, etc.
+    -->
+    <uses-permission android:name="android.permission.INTERNET"/>
+
+    <!-- When tests are ran on Firebase Test Lab, a wake lock
+         permission failure prevents tests from running.
+    -->
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
 </manifest>
