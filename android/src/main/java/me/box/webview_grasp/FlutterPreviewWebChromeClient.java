@@ -4,12 +4,13 @@ import android.content.pm.ActivityInfo;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 
 /**
  * Verifies that a url opened by `Window.open` has a secure url.
  */
 public class FlutterPreviewWebChromeClient extends FlutterWebChromeClient implements View.OnKeyListener {
-    private View fullscreenView;
+    private ViewGroup fullscreenView;
     private CustomViewCallback customViewCallback;
     private int requestedOrientation;
     private int windowSystemUiVisibility;
@@ -17,33 +18,35 @@ public class FlutterPreviewWebChromeClient extends FlutterWebChromeClient implem
     @Override
     public void onShowCustomView(View view, CustomViewCallback callback) {
         super.onShowCustomView(view, callback);
+        customViewCallback = callback;
         if (fullscreenView != null || activity == null) {
             callback.onCustomViewHidden();
             return;
         }
-        fullscreenView = view;
+        fullscreenView = new FrameLayout(view.getContext());
         fullscreenView.setOnKeyListener(this);
-        customViewCallback = callback;
+        fullscreenView.addView(view);
         requestedOrientation = activity.getRequestedOrientation();
         activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         final ViewGroup decorView = getDecorView();
-        windowSystemUiVisibility = decorView.getWindowSystemUiVisibility();
+        windowSystemUiVisibility = decorView.getSystemUiVisibility();
         decorView.setSystemUiVisibility(getFullscreenSystemUiVisibility());
-        decorView.addView(view);
+        decorView.addView(fullscreenView);
     }
 
     @Override
     public void onHideCustomView() {
         super.onHideCustomView();
+        customViewCallback = null;
         if (fullscreenView == null || activity == null) {
             return;
         }
-        final ViewGroup decorView = getDecorView();
         activity.setRequestedOrientation(requestedOrientation);
+        final ViewGroup decorView = getDecorView();
         decorView.setSystemUiVisibility(windowSystemUiVisibility);
         decorView.removeView(fullscreenView);
+        fullscreenView.setOnKeyListener(null);
         fullscreenView = null;
-        customViewCallback = null;
     }
 
     @Override
