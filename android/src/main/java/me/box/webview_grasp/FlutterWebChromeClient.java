@@ -9,6 +9,7 @@ import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
+import androidx.annotation.CallSuper;
 import androidx.annotation.NonNull;
 
 /**
@@ -19,6 +20,7 @@ public class FlutterWebChromeClient extends WebChromeClient {
     protected WebView webView;
     private FlutterWebViewClient flutterWebViewClient;
 
+    @CallSuper
     @Override
     public boolean onCreateWindow(final WebView view, boolean isDialog, boolean isUserGesture, Message resultMsg) {
         final WebViewClient webViewClient = new PrivateFlutterWebViewClient();
@@ -32,19 +34,23 @@ public class FlutterWebChromeClient extends WebChromeClient {
         return true;
     }
 
+    @CallSuper
     @Override
     public void onProgressChanged(WebView view, int progress) {
         flutterWebViewClient.onLoadingProgress(progress);
     }
 
+    @CallSuper
     public void setActivity(Activity activity) {
         this.activity = activity;
     }
 
+    @CallSuper
     public void setWebView(WebView webView) {
         this.webView = webView;
     }
 
+    @CallSuper
     public void setFlutterWebViewClient(FlutterWebViewClient flutterWebViewClient) {
         this.flutterWebViewClient = flutterWebViewClient;
     }

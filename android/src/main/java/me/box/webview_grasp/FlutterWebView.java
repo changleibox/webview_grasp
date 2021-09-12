@@ -48,7 +48,7 @@ public class FlutterWebView implements PlatformView, MethodCallHandler {
 
         final boolean supportFullscreen = Boolean.TRUE.equals(params.get("supportFullscreen"));
         if (supportFullscreen) {
-            flutterWebChromeClient = new FlutterFullscreenWebChromeClient();
+            flutterWebChromeClient = new FlutterPreviewWebChromeClient();
         } else {
             flutterWebChromeClient = new FlutterWebChromeClient();
         }
